@@ -1,9 +1,11 @@
 import web
 import json
+import os
 
 urls = (
     '/', 'Index',
     '/add', 'Add',
+    '/env', 'Env',
 )
 
 db = web.database(dbn='postgres', user='lordlandon', db='snappy')
@@ -16,6 +18,10 @@ class Index:
     def GET(self):
         junk = db.select('junk')
         return web.template.render('.').index(junk)
+
+class Env:
+    def GET(self):
+        return os.environ
 
 class Add:
     def POST(self):
