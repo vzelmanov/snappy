@@ -1,5 +1,6 @@
 web.py
 psycopg2
+dj_database_url
 
 gunicorn
 nose

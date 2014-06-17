@@ -1,6 +1,7 @@
 import web
 import json
 import os
+import dj_database_url
 
 urls = (
     '/', 'Index',
@@ -8,11 +9,16 @@ urls = (
     '/env', 'Env',
 )
 
-db = web.database(dbn='postgres', user='lordlandon', db='snappy')
+database_config = dj_database_url.config()
+
+db = web.database(dbn = 'postgres',
+                    host = database_config['HOST'],
+                    user = database_config['USER'],
+                    pw = database_config['PASSWORD'],
+                    db = database_config['NAME'])
+
 app = web.application(urls, globals())
 wsgi_app = web.application(urls, globals()).wsgifunc()
-
-        
 
 class Index:
     def GET(self):
